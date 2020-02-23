@@ -41,6 +41,10 @@ void draw(){
   outputFSM();
   
   // 
+  pushMatrix();
+    displayText();
+  popMatrix();
+  
   setupScene();
   drawChessboard();
   drawPawns();

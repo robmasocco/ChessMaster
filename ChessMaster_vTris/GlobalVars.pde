@@ -10,8 +10,8 @@ float[] ps = new float[3];
 // Coordiantes
 float[] HOME = {720.0, 720.0, 300.0};
 float xPawnGold = 0;
-float[] yPawnsGold = {920.0, 1040.0, 1160.0};
-float[] xPawnsGreen = {920.0, 1040.0, 1160.0};
+float[] yPawnsGold = {1020.0, 1320.0, 1620.0};
+float[] xPawnsGreen = {1020.0, 1320.0, 1620.0};
 float yPawnGreen = 0;
 float zPawn = 50.0;
 float[] xCells = {920.0, 1040.0, 1160.0};
@@ -37,6 +37,9 @@ color DARK_RED = color(178,34,34);
 color DARK_GREY = color(100);
 color DARK_BLUE = color(0, 0, 204);
 color DARK_GREEN = color(0, 150, 0);
+color LIGHT_YELLOW = color(255, 255, 125);
+color LIGHT_RED = color(255, 97, 97);
+color LIGHT_GREEN = color(97, 255, 97);
 color GOLD = color(212,190,0);
 color BROWN = color(139, 93, 46);
 // Errors

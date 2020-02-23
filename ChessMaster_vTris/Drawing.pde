@@ -17,7 +17,7 @@ float xChessboard = 840.0;
 float yChessboard = 840.0;
 float radiusPawn = 50.0;
 // Floor
-float[] dimFloor = {1e5, 1e5, 0};
+float[] dimFloor = {5e3, 5e3, 0};
 
 /* Sets the scene angulation. */
 void setupScene(){
@@ -39,6 +39,7 @@ void drawChessboard(){
     shape(chessboard);
   popMatrix();
   
+  int nCell = 1;
   for(int i = 0; i<3; i++){
     for(int j = 0; j<3; j++){
       pushMatrix();
@@ -48,6 +49,15 @@ void drawChessboard(){
         else
           fill(0);
         box(120, 120, 0.5);
+        if( (i+j) % 2 == 0)
+          fill(0);
+        else
+          fill(255);
+        textSize(80);
+        translate(textWidth(str(nCell))/2, -textWidth(str(nCell))/2, 1);
+        rotateZ(PI);
+        text(nCell, 0, 0);
+        nCell += 1;
       popMatrix();
     }
   }
@@ -70,14 +80,27 @@ void drawPawns(){
     popMatrix();
   }
   
+  char pawnChar;
   for( int i = 0; i < 3; i++ ){
     pushMatrix();
       translate(targetPawn[i][0], -targetPawn[i][1], targetPawn[i][2]);
       shape(pawnsGold[i]);
+      fill(0);
+      pawnChar = (char) (65 + i);
+      textSize(80);
+      translate(textWidth(str(pawnChar))/2, -textWidth(str(pawnChar))/2, zPawn/2+0.5);
+      rotateZ(PI);
+      text(pawnChar, 0, 0);
     popMatrix();
     pushMatrix();
       translate(targetPawn[i+3][0], -targetPawn[i+3][1], targetPawn[i+3][2]);
       shape(pawnsGreen[i]);
+      fill(0);
+      pawnChar = (char) (65 + i + 3);
+      textSize(80);
+      translate(textWidth(str(pawnChar))/2, -textWidth(str(pawnChar))/2, zPawn/2+0.5);
+      rotateZ(PI);
+      text(pawnChar, 0, 0);
     popMatrix();
   }
   

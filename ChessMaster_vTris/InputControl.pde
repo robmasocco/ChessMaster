@@ -78,7 +78,7 @@ void keyPressed(){
   }
   
   // Select pawn and cell
-  if( !toCatch && !toCatch && !toHome){
+  if( !toCatch && !toCatch && !toHome ){
     // Keys for pawns
     if( key == 'a' || key == 'A'){
       indexPawn = 0;
