@@ -9,7 +9,8 @@ import java.net.*;
 /* UDP data. */
 String myAddr = "192.168.2.100";
 String yourAddr = "192.168.2.100";
-int myPort = 8080;
+int myPort = 8080;  // Processing UDP port.
+int slPort = 8081;  // Simulink UDP port.
 InetAddress myIP, yourIP;
 DatagramSocket sock;
 DatagramPacket packetOut;
@@ -34,7 +35,7 @@ void initSocket() {
 void sendUDP(float[] pawn, float[] cell){
 
   byte[] packetToSend = encodingPacket(pawn, cell); 
-  packetOut = new DatagramPacket(packetToSend, nBYTE_SEND, yourIP, myPort);
+  packetOut = new DatagramPacket(packetToSend, nBYTE_SEND, yourIP, slPort);
   try {
     sock.send(packetOut);
   }
