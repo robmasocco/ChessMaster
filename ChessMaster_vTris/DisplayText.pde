@@ -15,21 +15,21 @@ String strTitlePawn = "Pawn";
 String strTitleCell = "Cell";
 String strTarget = "Target";
 String strJointVars = "Joint variables";
+String strUDPStateTitle = "Simulink Connection";
 
 /* Displays some text whithin the simulation. */
 void displayText() {
-  String strCurrentState;
+  String strCurrentState, strUDPCurrentState;
   String strPawn, strCell;
 
   textSize(20); 
 
-  // Title bar.
+  // Robot State.
   fill(LIGHT_YELLOW);
   translate(margin, margin);
   rect(0, 0, widthDisplay, 7*margin);
   fill(0);
   text(strTitleRobotState, (widthDisplay-textWidth(strTitleRobotState))/2, 5*margin);
-  // Table.
   translate(0, 7*margin);
   if ( !toCatch && !toCell && !toHome ) {
     strCurrentState = "Ready!";
@@ -65,5 +65,25 @@ void displayText() {
   else
     strCell = str(indexCell+1);
   text(strCell, widthDisplay/2+(widthDisplay/2-textWidth(strCell))/2, 6*margin);
+
+  // UDP state.
+  translate(0, 15*margin);
+  fill(LIGHT_YELLOW);
+  rect(0, 0, widthDisplay, 7*margin);
+  fill(0);
+  text(strUDPStateTitle, (widthDisplay-textWidth(strUDPStateTitle))/2, 5*margin);
+  translate(0, 7*margin);
+  if ( readUDP ) {
+    strUDPCurrentState = "CONNECTED";
+    fill(LIGHT_GREEN);
+  }
+  else {
+    strUDPCurrentState = "DISCONNECTED";
+    fill(LIGHT_RED);
+  }
+  rect(0, 0, widthDisplay, 9*margin);
+  line(0, 9*margin, widthDisplay/2, 9*margin);
+  fill(0);
+  text(strUDPCurrentState, (widthDisplay-textWidth(strUDPCurrentState))/2, 6*margin);
 
 }

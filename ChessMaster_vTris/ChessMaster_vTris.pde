@@ -32,9 +32,9 @@ void draw() {
     if ( nAttempts < MAX_ATTEMPTS ) {
       sendUDP(udpPawn, udpCell);
       nAttempts += 1;
-    }  
-    receiveUDP();
+    }
   }
+  receiveUDP();
 
   // Manages the movement of the pawns.
   nextStateFSM();
