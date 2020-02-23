@@ -32,7 +32,7 @@ void initSocket() {
 }
 
 /* Sends a packet with pawn and cell coordinates. */
-void sendUDP(float[] pawn, float[] cell){
+void sendUDP(float[] pawn, float[] cell) {
 
   byte[] packetToSend = encodingPacket(pawn, cell); 
   packetOut = new DatagramPacket(packetToSend, nBYTE_SEND, yourIP, slPort);
@@ -64,7 +64,7 @@ void receiveUDP() {
       ps[2] = temp[1][2] * 1000.0;
     }
   }
-  catch(Exception e) {
+  catch (Exception e) {
     println(ERROR_RECV);
     exit();
   }
