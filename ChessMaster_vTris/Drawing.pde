@@ -1,9 +1,10 @@
 /*  
-    Robotica Industriale - Progetto finale
-    Author:  Roberto Masocco, Alessandro Tenaglia
+    Robotica Industriale - Progetto Finale
+    Authors:  Roberto Masocco, Alessandro Tenaglia
     Created: 22.02.2020
 */
 
+/* Robot geometric parameters. */
 float D1 = 525.0;
 float hPivot = 450.0;
 float hPivotAtt = 175.0;
@@ -13,15 +14,17 @@ float hLink2Att = 125.0;
 float endEffectorDist = 840.5;
 float hEndEffectorAtt = 400.0;
 float D4 = 650.0;
+
+/* Pawns and chessboard geometric parameters. */
 float xChessboard = 840.0;
 float yChessboard = 840.0;
 float radiusPawn = 50.0;
-// Floor
+
+/* Floor dimensions. */
 float[] dimFloor = {5e3, 5e3, 0};
 
 /* Sets the scene angulation. */
-void setupScene(){
-
+void setupScene() {
   translate(width/2, height/2, distanceZ);
   rotateX(-angoloX);
   rotateY(angoloY);
@@ -32,26 +35,30 @@ void setupScene(){
 }
 
 /* Draws chessboard and cells. */
-void drawChessboard(){
-  
+void drawChessboard() {
+
   pushMatrix();
     translate(xChessboard, -yChessboard, 0);
     shape(chessboard);
   popMatrix();
-  
+
   int nCell = 1;
-  for(int i = 0; i<3; i++){
-    for(int j = 0; j<3; j++){
+  for ( int i = 0; i<3; i++ ) {
+    for ( int j = 0; j<3; j++ ) {
       pushMatrix();
         translate(xCells[i], -yCells[j], zCell);
-        if( (i+j) % 2 == 0)
+        if( (i+j) % 2 == 0 )
+          // White cell.
           fill(255);
         else
+          // Black cell.
           fill(0);
         box(120, 120, 0.5);
-        if( (i+j) % 2 == 0)
+        if( (i+j) % 2 == 0 )
+          // White cell (black on white).
           fill(0);
         else
+          // Black cell (white on black).
           fill(255);
         textSize(80);
         translate(textWidth(str(nCell))/2, -textWidth(str(nCell))/2, 1);
@@ -61,13 +68,13 @@ void drawChessboard(){
       popMatrix();
     }
   }
-  
+
 }
 
 /* Draws the pawns. */
-void drawPawns(){
-  
-  for( int i = 0; i < 3; i++){
+void drawPawns() {
+
+  for ( int i = 0; i < 3; i++ ) {
     pushMatrix();
       translate(xPawnGold, -yPawnsGold[i], 0.5);
       fill(GOLD);
@@ -79,9 +86,9 @@ void drawPawns(){
       ellipse(0, 0, radiusPawn*2, radiusPawn*2);
     popMatrix();
   }
-  
+
   char pawnChar;
-  for( int i = 0; i < 3; i++ ){
+  for ( int i = 0; i < 3; i++ ) {
     pushMatrix();
       translate(targetPawn[i][0], -targetPawn[i][1], targetPawn[i][2]);
       shape(pawnsGold[i]);
@@ -103,28 +110,27 @@ void drawPawns(){
       text(pawnChar, 0, 0);
     popMatrix();
   }
-  
+
 }
 
 /* Draws the robot. */
 void drawRobot() {
- 
+
   pushMatrix();
-    // Base of robot, fixed
+    // Base of robot, fixed.
     translate(0, 0, D1/2.0);  
     shape(base); 
-    // Pivot and Link2, 2 DOF
+    // Pivot and Link2, 2 DOF.
     rotateZ(-qs[0]);
     translate(0, 0, qs[1] + (D1 - hPivot)/2.0 - hLink2);
     shape(pivot);
     translate(0, 0, hPivotAtt);
     shape(link2);  
-    // Link3 and Pinza, 1 DOF
+    // Link3 and End Effector, 1 DOF.
     translate(0, - qs[2] + endEffectorDist, hLink2Att);
     shape(link3);
     translate(0, -endEffectorDist, hEndEffectorAtt);
     shape(endEffector);
   popMatrix();
-  
+
 }
- 

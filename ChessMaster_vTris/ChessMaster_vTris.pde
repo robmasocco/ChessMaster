@@ -1,11 +1,11 @@
-/*  
-    Robotica Industriale - Progetto finale
-    Author:  Roberto Masocco, Alessandro Tenaglia
+/*
+    Robotica Industriale - Progetto Finale
+    Authors:  Roberto Masocco, Alessandro Tenaglia
     Created: 22.02.2020
 */
 
-void setup(){
-  
+void setup() {
+
   // Setup of the scene.
   fullScreen(P3D);
   background(BACKGROUND);
@@ -13,41 +13,41 @@ void setup(){
   initSocket();
   importOBJs();
   initPawns();
-  
+
   // Computes initial conditions of robot with inverse kinematics.
   qs[2] = q3_inv(HOME[0], HOME[1]);
   qs[1] = q2_inv(HOME[2], D1, D4);
   qs[0] = q1_inv(HOME[0], HOME[1], qs[2]);
-  
+
 }
 
-void draw(){
-  
+void draw() {
+
   // Set the scene.
   background(BACKGROUND);
   lights();
-  
-  // Comunication with Simukink 
-  if( readUDP ){
-    if( nAttempts < MAX_ATTEMPTS){
+
+  // Communication with Simulink. 
+  if ( readUDP ) {
+    if ( nAttempts < MAX_ATTEMPTS ) {
       sendUDP(udpPawn, udpCell);
       nAttempts += 1;
     }  
     receiveUDP();
   }
-  
+
   // Manages the movement of the pawns.
   nextStateFSM();
   outputFSM();
-  
-  // 
+
+  // Display some text on the objects.
   pushMatrix();
     displayText();
   popMatrix();
-  
+
   setupScene();
   drawChessboard();
   drawPawns();
   drawRobot();
-    
+
 }

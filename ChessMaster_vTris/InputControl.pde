@@ -1,17 +1,18 @@
 /*  
-    Robotica Industriale - Progetto finale
-    Author:  Roberto Masocco, Alessandro Tenaglia
+    Robotica Industriale - Progetto Finale
+    Authors:  Roberto Masocco, Alessandro Tenaglia
     Created: 22.02.2020
 */
 
-// View params
+/* Camera view parameters. */
 float angoloX = 0.0;
 float angoloY = 0.0;
 float angoloXpartenza = 0.0;
 float angoloYpartenza = 0.0;
 float distanceZ = -2000;
 float zoomStep = 10;
-//
+
+/* Simulation variables. */
 boolean readUDP = true;
 int indexCell = 0;
 int indexPawn = 0;
@@ -24,22 +25,25 @@ void mouseWheel(MouseEvent event) {
   if (e < 0) distanceZ += zoomStep;
 }
 
-void mousePressed(){
+/* Processes mouse clicks to set the camera view. */
+void mousePressed() {
   angoloYpartenza = angoloY + (PI*mouseX)/float(500);
   angoloXpartenza = angoloX + (PI*mouseY)/float(500);
 }
 
-void mouseDragged(){
+/* Processes mouse drags to set the camera view. */
+void mouseDragged() {
   angoloX = angoloYpartenza - (PI*mouseX)/float(500);
   angoloY = angoloX - (PI*mouseY)/float(500);
 }
 
+/* Processes keyboard inputs. */
 void keyPressed(){
-  
-  // Direct kinematics
-  if( !readUDP ){
-    if( keyCode == RIGHT){
-      switch (joint){
+  // Direct kinematics.
+  if ( !readUDP ) {
+    // Increment current joint variable.
+    if ( keyCode == RIGHT ) {
+      switch (joint) {
         case 1:
           qs[0] += stepAngle;
           break;
@@ -51,9 +55,10 @@ void keyPressed(){
           break;
       }   
     }
-    
-    if( keyCode == LEFT){
-      switch (joint){
+
+    // Decrement current joint variable.
+    if ( keyCode == LEFT ) {
+      switch (joint) {
         case 1:
           qs[0] -= stepAngle;
           break;
@@ -65,97 +70,105 @@ void keyPressed(){
           break;
       } 
     }
-    
-    if( key == 'q' || key == 'Q' ){
+
+    // Select joint to modify.
+    if ( key == 'q' || key == 'Q' ) {
       joint = 1;
     }
-    if( key == 'w' || key == 'W' ){
+    if ( key == 'w' || key == 'W' ) {
       joint = 2;
     }
-    if( key == 'e' || key == 'E' ){
+    if ( key == 'e' || key == 'E' ) {
       joint = 3;
     }
   }
-  
-  // Select pawn and cell
-  if( !toCatch && !toCatch && !toHome ){
-    // Keys for pawns
-    if( key == 'a' || key == 'A'){
+
+  // Select target pawn and cell.
+  if ( !toCatch && !toCatch && !toHome ) {
+    // Keys for pawns.
+    if ( key == 'a' || key == 'A') {
       indexPawn = 0;
     }
-    if( key == 'b' || key == 'B'){
+    if ( key == 'b' || key == 'B') {
       indexPawn = 1;
     }
-    if( key == 'c' || key == 'C'){
+    if ( key == 'c' || key == 'C') {
       indexPawn = 2;
     }
-    if( key == 'd' || key == 'D'){
+    if ( key == 'd' || key == 'D') {
       indexPawn = 3;
     }
-    if( key == 'e' || key == 'E'){
+    if ( key == 'e' || key == 'E') {
       indexPawn = 4;
     }
-    if( key == 'f' || key == 'F'){
+    if ( key == 'f' || key == 'F') {
       indexPawn = 5;
     }
-    
-    // Keys for cells
-    if( key == '1'){
+
+    // Keys for cells.
+    if ( key == '1') {
       indexCell = 0;
     }
-    if( key == '2'){
+    if ( key == '2') {
       indexCell = 1;
     }
-    if( key == '3'){
+    if ( key == '3') {
       indexCell = 2;
     } 
-    if( key == '4'){
+    if ( key == '4') {
       indexCell = 3;
     }
-    if( key == '5'){
+    if ( key == '5') {
       indexCell = 4;
     }
-    if( key == '6'){
+    if ( key == '6') {
       indexCell = 5;
     }
-    if( key == '7'){
+    if ( key == '7') {
       indexCell = 6;
     }
-    if( key == '8'){
+    if ( key == '8') {
       indexCell = 7;
     }
-    if( key == '9'){
+    if ( key == '9') {
       indexCell = 8;
     }
-    if( key == '0'){
+    if ( key == '0') {
       indexCell = -1;
     }
-    
-    if( key == 'h' || key == 'H'){
+
+    // Reset simulation.
+    if ( key == 'h' || key == 'H') {
       initPawns();
     }
-  
-    if( keyCode == ENTER ){
+
+    // Start simulation.
+    if ( keyCode == ENTER ) {
       toCatch = true;
       toCell = false;
       toHome = false;
-      if( indexCell < 0){
-        if( indexPawn < 3){
+      if ( indexCell < 0 ) {
+        // Must bring a pawn back.
+        if ( indexPawn < 3 ) {
+          // Gold pawn.
           targetCell[0] = xPawnGold;
           targetCell[1] = yPawnsGold[indexPawn];  
           targetCell[2] = 0.0;
         }
-        else{
-          targetCell[0] = xPawnsGreen[indexPawn%3];
+        else {
+          // Green pawn.
+          targetCell[0] = xPawnsGreen[indexPawn % 3];
           targetCell[1] = yPawnGreen;  
           targetCell[2] = 0.0;
         }
       }
-      else{
-        targetCell[0] = xCells[indexCell/3];
-        targetCell[1] = yCells[indexCell%3];
+      else {
+        // Must place a pawn.
+        targetCell[0] = xCells[indexCell / 3];
+        targetCell[1] = yCells[indexCell % 3];
         targetCell[2] = zCell;
       }
+      // Set initial and final positions and transmit data.
       udpCell[0] = targetCell[0];
       udpCell[1] = targetCell[1];
       udpCell[2] = targetCell[2] + zPawn;
@@ -165,12 +178,13 @@ void keyPressed(){
       nAttempts = 0;
     }
   }  
-  
+
+  // Toggle network communication.
   if( key == 'u' || key == 'U'){
     readUDP = !readUDP;
     toCatch = false;
     toCell = false;
     toHome = false;
   }
-  
+
 }
