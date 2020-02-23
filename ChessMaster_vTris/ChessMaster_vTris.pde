@@ -40,11 +40,12 @@ void draw() {
   nextStateFSM();
   outputFSM();
 
-  // Display some text on the objects.
+  // Display some text and information.
   pushMatrix();
     displayText();
   popMatrix();
 
+  // Draw the objects.
   setupScene();
   drawChessboard();
   drawPawns();

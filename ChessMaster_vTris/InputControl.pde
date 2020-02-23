@@ -5,15 +5,17 @@
 */
 
 /* Camera view parameters. */
-float angoloX = 0.0;
-float angoloY = 0.0;
-float angoloXpartenza = 0.0;
-float angoloYpartenza = 0.0;
-float distanceZ = -2000;
-float zoomStep = 10;
+float angleX = -radians(30.0);
+float angleZ = radians(120.0);
+float prevMouseX = width/2.0;
+float prevMouseY = height/2.0;
+float viewAngleStep = 0.05;
+float mouseViewThresh = 20.0;
+float distanceZ = -2000.0;
+float zoomStep = 10.0;
 
 /* Simulation variables. */
-boolean readUDP = true;
+boolean readUDP = false;
 int indexCell = 0;
 int indexPawn = 0;
 int joint = 1;
@@ -25,20 +27,36 @@ void mouseWheel(MouseEvent event) {
   if (e < 0) distanceZ += zoomStep;
 }
 
-/* Processes mouse clicks to set the camera view. */
-void mousePressed() {
-  angoloYpartenza = angoloY + (PI*mouseX)/float(500);
-  angoloXpartenza = angoloX + (PI*mouseY)/float(500);
-}
-
 /* Processes mouse drags to set the camera view. */
 void mouseDragged() {
-  angoloX = angoloYpartenza - (PI*mouseX)/float(500);
-  angoloY = angoloX - (PI*mouseY)/float(500);
+  float sgnX = 0.0, sgnY = 0.0;
+  // Analyze mouse movement and determine the sign of the increments.
+  if (abs(mouseX - prevMouseX) > mouseViewThresh) {
+    if (mouseX < prevMouseX) {
+      // Y angle decrement.
+      sgnY = -1.0;
+    } else {
+      // Y angle increment.
+      sgnY = 1.0;
+    }
+    angleZ += sgnY * viewAngleStep;
+    prevMouseX = mouseX;
+  }
+  if (abs(mouseY - prevMouseY) > mouseViewThresh) {
+    if (mouseY < prevMouseY) {
+      // X angle increment.
+      sgnX = 1.0;
+    } else {
+      // X angle decrement.
+      sgnX = -1.0;
+    }
+    angleX += sgnX * viewAngleStep;
+    prevMouseY = mouseY;
+  }
 }
 
 /* Processes keyboard inputs. */
-void keyPressed(){
+void keyPressed() {
   // Direct kinematics.
   if ( !readUDP ) {
     // Increment current joint variable.

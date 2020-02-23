@@ -31,7 +31,7 @@ void displayText() {
   text(strTitleRobotState, (widthDisplay-textWidth(strTitleRobotState))/2, 5*margin);
   // Table.
   translate(0, 7*margin);
-  if ( !toCatch && !toCatch && !toHome ) {
+  if ( !toCatch && !toCell && !toHome ) {
     strCurrentState = "Ready!";
     fill(LIGHT_GREEN);
   }

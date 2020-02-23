@@ -23,12 +23,13 @@ float radiusPawn = 50.0;
 /* Floor dimensions. */
 float[] dimFloor = {5e3, 5e3, 0};
 
-/* Sets the scene angulation. */
+/* Initializes the scene. */
 void setupScene() {
+  // Set up camera view.
   translate(width/2, height/2, distanceZ);
-  rotateX(-angoloX);
-  rotateY(angoloY);
+  rotateX(angleX);
   rotateX(PI/2);
+  rotateZ(angleZ);
   // Draws the floor of the scene.
   fill(50);
   box(dimFloor[0], dimFloor[1], dimFloor[2]);
