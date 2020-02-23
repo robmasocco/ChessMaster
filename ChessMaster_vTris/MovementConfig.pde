@@ -28,25 +28,23 @@ void initPawns(){
 void nextStateFSM(){
   
   if( toCatch ){
-    float norm = sqrt( pow( (targetPawn[indexPawn][0] - ps[0]) , 2) + pow( (targetPawn[indexPawn][1] - ps[1]) , 2) +  pow( (targetPawn[indexPawn][2] - ps[2]) , 2) );
+    float norm = sqrt(abs( pow( (targetPawn[indexPawn][0] - ps[0]) , 2) + pow( (targetPawn[indexPawn][1] - ps[1]) , 2) +  pow( (targetPawn[indexPawn][2] - ps[2]) , 2) ));
     if( norm <= 27 ){
       toCatch = false;
       toCell = true;
     }
-    println(ps[2]);
   }
   
   if( toCell ){
-    float norm = sqrt( pow( (targetCell[0] - targetPawn[indexPawn][0]) , 2) + pow( (targetCell[1] - targetPawn[indexPawn][1]) , 2) +  pow( (targetCell[2] - targetPawn[indexPawn][2]) , 2) );
+    float norm = sqrt(abs( pow( (targetCell[0] - targetPawn[indexPawn][0]) , 2) + pow( (targetCell[1] - targetPawn[indexPawn][1]) , 2) +  pow( (targetCell[2] - targetPawn[indexPawn][2]) , 2) ));
     if( norm <= 27.0 ){
       toCell = false;
       toHome = true;
     }
-    println(ps[2]);
   }
   
   if( toHome ){
-    float norm = sqrt( pow( (HOME[0] - ps[0]) , 2) + pow( (HOME[1] - ps[1]) , 2) +  pow( (HOME[2] - ps[2]) , 2) );
+    float norm = sqrt(abs( pow( (HOME[0] - ps[0]) , 2) + pow( (HOME[1] - ps[1]) , 2) +  pow( (HOME[2] - ps[2]) , 2) ));
     println(norm);
     if( norm <= 1.0 ){
       toHome = false;

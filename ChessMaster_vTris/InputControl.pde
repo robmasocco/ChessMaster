@@ -12,7 +12,7 @@ float angoloYpartenza = 0.0;
 float distanceZ = -2000;
 float zoomStep = 10;
 //
-boolean readUDP = false;
+boolean readUDP = true;
 int indexCell = 0;
 int indexPawn = 0;
 int joint = 1;
@@ -135,7 +135,7 @@ void keyPressed(){
       initPawns();
     }
   
-    if( key == 'r' || key == 'R'){
+    if( keyCode == ENTER ){
       toCatch = true;
       toCell = false;
       toHome = false;
@@ -143,16 +143,25 @@ void keyPressed(){
         if( indexPawn < 3){
           targetCell[0] = xPawnGold;
           targetCell[1] = yPawnsGold[indexPawn];  
+          targetCell[2] = 0.0;
         }
         else{
-          targetCell[0] = xPawnsGreen[indexPawn];
+          targetCell[0] = xPawnsGreen[indexPawn%3];
           targetCell[1] = yPawnGreen;  
+          targetCell[2] = 0.0;
         }
       }
       else{
         targetCell[0] = xCells[indexCell/3];
         targetCell[1] = yCells[indexCell%3];
+        targetCell[2] = zCell;
       }
+      udpCell[0] = targetCell[0];
+      udpCell[1] = targetCell[1];
+      udpCell[2] = targetCell[2] + zPawn;
+      udpPawn[0] = targetPawn[indexPawn][0];
+      udpPawn[1] = targetPawn[indexPawn][1];
+      udpPawn[2] = targetPawn[indexPawn][2] + zPawn/2.0;
       nAttempts = 0;
     }
   }  

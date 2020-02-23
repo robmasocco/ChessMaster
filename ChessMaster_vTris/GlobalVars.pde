@@ -18,7 +18,9 @@ float[] xCells = {920.0, 1040.0, 1160.0};
 float[] yCells = {920.0, 1040.0, 1160.0};
 float zCell = 75.0;
 float[][] targetPawn = new float[6][3];
-float[] targetCell = {0.0, 0.0, zCell};
+float[] targetCell = new float[3];
+float[] udpPawn = new float[3];
+float[] udpCell = new float[3];
 // Data size
 int nBYTE_FLOAT = 4;
 int nBYTE_SEND = 24;

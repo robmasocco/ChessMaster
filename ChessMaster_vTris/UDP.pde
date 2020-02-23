@@ -7,8 +7,8 @@
 import java.net.*;
 
 // UDP data
-String myAddr = "10.220.67.244";
-String yourAddr = "10.220.174.204";
+String myAddr = "192.168.178.42";
+String yourAddr = "192.168.178.81";
 int myPort = 8080;
 InetAddress myIP, yourIP;
 DatagramSocket sock;

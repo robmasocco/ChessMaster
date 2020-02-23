@@ -30,7 +30,7 @@ void draw(){
   // Comunication with Simukink 
   if( readUDP ){
     if( nAttempts < MAX_ATTEMPTS){
-      sendUDP(targetPawn[indexPawn], targetCell);
+      sendUDP(udpPawn, udpCell);
       nAttempts += 1;
     }  
     receiveUDP();

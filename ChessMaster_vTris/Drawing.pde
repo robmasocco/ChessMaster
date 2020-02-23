@@ -17,7 +17,7 @@ float xChessboard = 840.0;
 float yChessboard = 840.0;
 float radiusPawn = 50.0;
 // Floor
-float[] dimFloor = {1e5, 1e5, 1};
+float[] dimFloor = {1e5, 1e5, 0};
 
 /* Sets the scene angulation. */
 void setupScene(){
@@ -57,19 +57,26 @@ void drawChessboard(){
 /* Draws the pawns. */
 void drawPawns(){
   
-  for(int i = 0; i<3; i++){
+  for( int i = 0; i < 3; i++){
     pushMatrix();
-      translate(targetPawn[i][0], -targetPawn[i][1], 0.5);
+      translate(xPawnGold, -yPawnsGold[i], 0.5);
       fill(GOLD);
       ellipse(0, 0, radiusPawn*2, radiusPawn*2);
-      translate(0, 0, targetPawn[i][2]-0.5);
+    popMatrix();
+    pushMatrix();
+      translate(xPawnsGreen[i], -yPawnGreen, 0.5);
+      fill(DARK_GREEN);
+      ellipse(0, 0, radiusPawn*2, radiusPawn*2);
+    popMatrix();
+  }
+  
+  for( int i = 0; i < 3; i++ ){
+    pushMatrix();
+      translate(targetPawn[i][0], -targetPawn[i][1], targetPawn[i][2]);
       shape(pawnsGold[i]);
     popMatrix();
     pushMatrix();
-      translate(targetPawn[i+3][0], -targetPawn[i+3][1], 0.5);
-      fill(DARK_GREEN);
-      ellipse(0, 0, radiusPawn*2, radiusPawn*2);
-      translate(0, 0, targetPawn[i+3][2]-0.5);
+      translate(targetPawn[i+3][0], -targetPawn[i+3][1], targetPawn[i+3][2]);
       shape(pawnsGreen[i]);
     popMatrix();
   }
