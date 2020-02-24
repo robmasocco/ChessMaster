@@ -151,12 +151,12 @@ void keyPressed() {
     if ( key == '9') {
       indexCell = 8;
     }
-    if ( key == '0') {
+    if ( key == 'h' || key == 'H') {
       indexCell = -1;
     }
 
     // Reset simulation.
-    if ( key == 'h' || key == 'H') {
+    if ( key == 'r' || key == 'R') {
       initPawns();
     }
 

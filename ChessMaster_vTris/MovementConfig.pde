@@ -8,6 +8,7 @@
 boolean toCatch = false;
 boolean toCell = false;
 boolean toHome = false;
+int waitCount = 0;
 
 /* Sets the initial positions of pawns. */
 void initPawns() {
@@ -33,14 +34,25 @@ void nextStateFSM() {
     if ( norm <= 27.0 ) {
       toCatch = false;
       toCell = true;
+      if( targetCell[0] == targetPawn[indexPawn][0] && targetCell[1] == targetPawn[indexPawn][1])
+        waitCount = 0;
+      else
+        waitCount = 60;
     }
   }
 
   if ( toCell ) {
     float norm = sqrt(abs( pow( (targetCell[0] - targetPawn[indexPawn][0]) , 2) + pow( (targetCell[1] - targetPawn[indexPawn][1]) , 2) +  pow( (targetCell[2] - targetPawn[indexPawn][2]) , 2) ));
-    if ( norm <= 27.0 ) {
-      toCell = false;
-      toHome = true;
+    float norm2 = sqrt(abs( pow( (targetCell[0] - targetPawn[indexPawn][0]) , 2) + pow( (targetCell[1] - targetPawn[indexPawn][1]) , 2)));
+    if( norm2 < 0.5 && waitCount < 60){
+      waitCount += 1;
+      println(waitCount);
+    }
+    else{
+      if ( norm <= 27.0 ) {
+        toCell = false;
+        toHome = true;
+      }
     }
   }
 
