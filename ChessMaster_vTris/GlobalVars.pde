@@ -6,8 +6,10 @@
 
 /* Joint and space variables. */
 int nDOF = 3;
-float[] qs = new float[nDOF];
+float[] qs = new float[3];
+float[] qsR = new float[nDOF];
 float[] ps = new float[3];
+float[] psR = new float[3];
 
 /* Known coordinates. */
 float[] HOME = {720.0, 720.0, 300.0};
@@ -36,12 +38,14 @@ int nAttempts = MAX_ATTEMPTS;
 /* Increments for direct kinematics. */ 
 float stepAngle = 0.1;
 float stepPosition = 20.0;
+float kp = 0.2;
 
 /* Palette colors. */
 color BACKGROUND = color(57, 163, 188);
 color RED = color(255, 0, 0);
 color DARK_RED = color(178,34,34);
 color DARK_GREY = color(100);
+color BLUE = color(0, 0, 255);
 color DARK_BLUE = color(0, 0, 204);
 color DARK_GREEN = color(0, 150, 0);
 color LIGHT_YELLOW = color(255, 255, 125);

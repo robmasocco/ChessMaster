@@ -11,6 +11,7 @@ String myAddr = "10.220.67.244";
 String yourAddr = "10.220.174.204";
 int myPort = 8080;  // Processing UDP port.
 int slPort = 8081;  // Simulink UDP port.
+int TIMEOUT_SOCKET = 1;
 InetAddress myIP, yourIP;
 DatagramSocket sock;
 DatagramPacket packetOut;
@@ -23,6 +24,7 @@ void initSocket() {
     myIP = InetAddress.getByName(myAddr);
     yourIP = InetAddress.getByName(yourAddr);
     sock = new DatagramSocket(myPort, myIP);
+    sock.setSoTimeout(TIMEOUT_SOCKET);
   }
   catch(Exception e) {
     println(ERROR_INIT);
@@ -55,17 +57,16 @@ void receiveUDP() {
     sock.receive(packetIn);
     if ( readUDP ) {
       temp = decodingPacket(packArrayIn, nBYTE_FLOAT);
-      qs = temp[0];
       // Convert lengths from meters to millimeters.
-      qs[1] = qs[1] * 1000.0;
-      qs[2] = qs[2] * 1000.0;
-      ps[0] = temp[1][0] * 1000.0;
-      ps[1] = temp[1][1] * 1000.0;
-      ps[2] = temp[1][2] * 1000.0;
+      qsR[0] = temp[0][0];
+      qsR[1] = temp[0][1] * 1000.0;
+      qsR[2] = temp[0][2] * 1000.0;
+      
+      psR[0] = temp[1][0] * 1000.0;
+      psR[1] = temp[1][1] * 1000.0;
+      psR[2] = temp[1][2] * 1000.0;
     }
   }
-  catch (Exception e) {
-    println(ERROR_RECV);
-    exit();
+  catch (Exception e){
   }
 }

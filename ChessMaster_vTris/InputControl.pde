@@ -9,13 +9,13 @@ float angleX = -radians(30.0);
 float angleZ = radians(120.0);
 float prevMouseX = width/2.0;
 float prevMouseY = height/2.0;
-float viewAngleStep = 0.05;
+float viewAngleStep = 0.025;
 float mouseViewThresh = 20.0;
-float distanceZ = -2000.0;
+float distanceZ = -2200.0;
 float zoomStep = 10.0;
 
 /* Simulation variables. */
-boolean readUDP = false;
+boolean readUDP = true;
 int indexCell = 0;
 int indexPawn = 0;
 int joint = 1;
