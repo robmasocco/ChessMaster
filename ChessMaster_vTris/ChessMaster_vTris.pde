@@ -4,6 +4,7 @@
     Created: 22.02.2020
 */
 
+/* Initial simulation setup. */
 void setup() {
 
   // Setup of the scene.
@@ -25,6 +26,7 @@ void setup() {
 
 }
 
+/* The works. */
 void draw() {
 
   // Set the scene.
@@ -39,10 +41,13 @@ void draw() {
     }
   }
   receiveUDP();
-  
-  qs[0] = qs[0] - kp * (qs[0] - qsR[0]);
-  qs[1] = qs[1] - kp * (qs[1] - qsR[1]);
-  qs[2] = qs[2] - kp * (qs[2] - qsR[2]);
+
+  // Proportionally adjust joint variables.
+  if (readUDP) {
+    qs[0] = qs[0] - kp * (qs[0] - qsR[0]);
+    qs[1] = qs[1] - kp * (qs[1] - qsR[1]);
+    qs[2] = qs[2] - kp * (qs[2] - qsR[2]);
+  }
   
   ps[0] = -qs[2] * sin(qs[0]);
   ps[1] = qs[2] * cos(qs[0]);
@@ -55,7 +60,8 @@ void draw() {
   value_qr[0][index] = psR[0];
   value_qr[1][index] = psR[1];
   value_qr[2][index] = psR[2];
-  
+
+  // Increment oscilloscope data index.
   index = (index+1) % nPoint;
 
   // Manages the movement of the pawns.

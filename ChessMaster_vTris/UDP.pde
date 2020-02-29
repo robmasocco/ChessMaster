@@ -68,5 +68,6 @@ void receiveUDP() {
     }
   }
   catch (Exception e){
+    println(ERROR_RECV);
   }
 }

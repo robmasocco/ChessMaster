@@ -46,7 +46,6 @@ void nextStateFSM() {
     float norm2 = sqrt(abs( pow( (targetCell[0] - targetPawn[indexPawn][0]) , 2) + pow( (targetCell[1] - targetPawn[indexPawn][1]) , 2)));
     if( norm2 < 0.5 && waitCount < 60){
       waitCount += 1;
-      println(waitCount);
     }
     else{
       if ( norm <= 27.0 ) {

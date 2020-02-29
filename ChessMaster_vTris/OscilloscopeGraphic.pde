@@ -1,4 +1,10 @@
-// Oscilloscope
+/*  
+    Robotica Industriale - Progetto Finale
+    Authors:  Roberto Masocco, Alessandro Tenaglia
+    Created: 22.02.2020
+*/
+
+/* Oscilloscopes parameters. */
 int index = 0;              // Array index
 int FPS = 60;               // FPS processing
 int nSeconds = 3;           // Seconds to store
@@ -10,6 +16,7 @@ int nCol = 10;              // Number of grid columns
 float[][] value_q = new float[3][nPoint];
 float[][] value_qr = new float[3][nPoint];
 
+/* Draws an oscilloscope and displays data. */
 void oscilloscope(float[] value, float[] value_r, String title){
   int i, j, k;
   int p=index;
