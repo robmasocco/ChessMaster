@@ -7,8 +7,8 @@
 import java.net.*;
 
 /* UDP data. */
-String myAddr = "10.220.67.244";
-String yourAddr = "10.220.174.204";
+String myAddr = "192.168.2.112";
+String yourAddr = "192.168.2.101";
 int myPort = 8080;  // Processing UDP port.
 int slPort = 8081;  // Simulink UDP port.
 int TIMEOUT_SOCKET = 1;
