@@ -57,7 +57,7 @@ void nextStateFSM() {
 
   if ( toHome ) {
     float norm = sqrt(abs( pow( (HOME[0] - ps[0]) , 2) + pow( (HOME[1] - ps[1]) , 2) +  pow( (HOME[2] - ps[2]) , 2) ));
-    if ( norm <= 1.0 ) {
+    if ( norm <= 2.0 ) {
       toHome = false;
     }
   }
