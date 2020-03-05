@@ -23,7 +23,10 @@ void setup() {
   qsR[0] = qs[0];
   qsR[1] = qs[1];
   qsR[2] = qs[2];
-
+  
+  psR[0] = HOME[0];
+  psR[1] = HOME[1];
+  psR[2] = HOME[2];
 }
 
 /* The works. */
